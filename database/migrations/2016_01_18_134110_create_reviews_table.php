@@ -26,6 +26,11 @@ class CreateReviewsTable extends Migration
             $table->enum('Credit_Debit', ['كاش', 'اجل','كاش واجل','مستخلصات حكومية']);
             $table->string('Sub_Contractor', 150)->default(null);
             $table->enum('Class', ['1','2','3','4','5','6','7']);
+            $table->timestamps();
+            
+            $table->integer('Contractor_Id')->unsigned();
+            $table->foreign('Contractor_Id')->references('Contractor_Id')->on('contractors')->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 
