@@ -6,9 +6,11 @@
 	
 	<!-- <form> -->
 		أسم الادمن: 
-			<input type="text" name="admin_name" placeholder="admin name" value="{{$admin->Admin_Name}}" /><br/>
+			<input type="text" name="admin_name" value="{{$admin->Admin_Name}}" /><br/>
 		اسم المستخدم:
-			<input type="text" name="user_name" placeholder="user name" value="{{$admin->User_Name}}" /><br/>
+			<input type="text" name="user_name" value="{{$admin->User_Name}}" /><br/>			
+		البريد الاليكتروني:
+			<input type="text" name="user_mail" value="{{$admin->Mail}}"/><br/>
 		كلمة المرور:
 			<input type="password" name="password" value="{{$admin->Password}}" /><br/>
 	

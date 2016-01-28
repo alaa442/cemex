@@ -11,6 +11,7 @@
 	    	<td>رقم المسلسل</td>
 		    <td>اسم الادمن</td>
 		    <td>اسم المستخدم</td> 
+		    <td>البريد الاليكتروني</td> 
 		    <td>كلمة المرور</td>
 
 		    <td>ملحوظات</td>
@@ -22,6 +23,7 @@
 			    <td>{{$admin->Admin_Id}}</td>
 			    <td>{{$admin->Admin_Name}}</td>
 			    <td>{{$admin->User_Name}}</td>
+			    <td>{{$admin->Mail}}</td>
 				<td>{{$admin->Password}}</td>
 
 		  		<td> 

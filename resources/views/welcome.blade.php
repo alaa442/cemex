@@ -84,8 +84,8 @@ ddaccordion.init({
                     <li><a href="/presents">الهدايا</a></li>
                     <li><a href="/awards">جوائز المندوبين</a></li>
                     <li><a href="/reviews">مراجعة البيانات</a></li>
-                    <li><a href="/visites">الزيارات</a></li>
-                    <li><a href="/competions">المسابقات</a></li>
+                    <li><a href="/visits">الزيارات</a></li>
+                    <li><a href="/competitions">المسابقات</a></li>
                 </ul>
         </div>
 

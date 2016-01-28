@@ -16,6 +16,7 @@ class CreateAdminsTable extends Migration
             $table->increments('Admin_Id');
             $table->string('Admin_Name', 150)->nullable(false);
             $table->string('User_Name', 100)->nullable(false);
+            $table->string('Mail', 100)->nullable(false);
             $table->string('Password', 100)->nullable(false);
             $table->timestamps();
         });

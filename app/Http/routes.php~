@@ -34,15 +34,6 @@ Route::get('/promoters/destroy/{id}','PromotersController@destroy');
 Route::resource('/visits','VisitsController');
 Route::get('/visits/destroy/{id}','VisitsController@destroy');
 
-Route::resource('/awards','AwardsController');
-Route::get('awards/destroy/{id}', 'AwardsController@destroy');
-
-Route::resource('/competitions','CompetitionsController');
-Route::get('competitions/destroy/{id}', 'CompetitionsController@destroy');
-
-Route::resource('/presents','PresentsController');
-Route::get('presents/destroy/{id}', 'PresentsController@destroy');
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes

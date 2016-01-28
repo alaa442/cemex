@@ -9,6 +9,8 @@
 			<input type="text" name="admin_name" placeholder="admin name"required/><br/>
 		اسم المستخدم:
 			<input type="text" name="user_name" placeholder="user name" required/><br/>
+		البريد الاليكتروني:
+			<input type="text" name="mail" placeholder="user mail" required/><br/>
 		كلمة المرور:
 			<input type="password" name="password" required/><br/>
 	

@@ -19,6 +19,11 @@
 	</tr>
 
 	<tr>
+		<td>البريد الاليكتروني</td>
+		<td>{{$admin->Mail}}</td>
+	</tr>
+
+	<tr>
 		<td>كلمة المرور</td>
 		<td>{{$admin->Password}}</td>
 	</tr>

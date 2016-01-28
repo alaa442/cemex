@@ -24,12 +24,5 @@ class Contractor extends Model
 
     	return $this->hasMany('App\Visit','Contractor_Id');
     }
-	
-	public function presents()
-    {
-        return $this->hasMany('App\Present');
-        
-    
-    }
 
 }
