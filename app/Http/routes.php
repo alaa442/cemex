@@ -25,6 +25,9 @@ Route::get('/contractors/destroy/{id}','ContractorsController@destroy');
 Route::resource('/reviews','ReviewsController');
 Route::get('/reviews/destroy/{id}','ReviewsController@destroy');
 
+Route::resource('/admins','AdminsController');
+Route::get('/admins/destroy/{id}','AdminsController@destroy');
+
 
 /*
 |--------------------------------------------------------------------------

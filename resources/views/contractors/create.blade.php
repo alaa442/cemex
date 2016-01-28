@@ -56,10 +56,11 @@
 			<input type="text" name="seller3" id="seller3" placeholder="Contractor seller 3"/><br/>
 		تاجر الاسمنت 4:
 			<input type="text" name="seller4" id="seller4" placeholder="Contractor seller 4" /><br/>
-		رقم المقاول:
+		رقم المندوب:
 			<select id="pormoter_id" name="pormoter_id">
 				<option value="1">1</option>
-			</select><br/>
+			</select><br/>		
+
 		هاتف ذكي:
 			<select id="phone_type" name="phone_type">
 				<option value="yes">نعم</option>

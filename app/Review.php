@@ -8,8 +8,8 @@ class review extends Model
 {
     protected $primaryKey = 'Review_Id';
 
-    public function contractor()
+    public function getcontractor()
     {
-        return $this->belongsTo('App\Contractor','foreign_key');
+        return $this->belongsTo('App\Contractor','Contractor_Id');
     }
 }

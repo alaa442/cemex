@@ -3,8 +3,17 @@
 @section('content')
 	
 	{!! Form::open(['route'=> ['reviews.update',$review->Review_Id], 'method' => 'put']) !!}
-	
+
 	<!-- <form> -->
+		
+		اسم المقاول:
+			<select id="contractor_id" name="contractor_id">
+				@foreach($contractors as $contractor)
+					<option value=" {{ $contractor->Contractor_Id }} "> {{ $contractor->Name }} </option>			
+				@endforeach
+			</select>
+
+		<br/>	
 		GPS: 
 			<input type="text" name="GPS"  value="{{ $review->GPS }}" /><br/>
 		عدد المواقع:

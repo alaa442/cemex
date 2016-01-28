@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Contractor;
@@ -14,17 +12,13 @@ class ContractorsController extends Controller
 {
     public function index()
     {
-    	
-       // $contractors = Contractor::with('promoter')->get();
-       // return view('contractors.index',compact('contractors'));
-       //$contractors = Contractor::find(1)->promoter->Name;
-
         $contractors = Contractor::all();
         return view('contractors.index',compact('contractors'));
     }
 
     public function create()
     {
+        
     	return view('contractors.create');
     }
 

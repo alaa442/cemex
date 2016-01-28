@@ -27,6 +27,7 @@
 	<div class="row">
 		<div class="side_bar col-md-3" id="leftCol">
 			<ul class="nav nav-stacked" id="sidebar">
+				<li><a href="/admins">الادارة</a></li>
 			    <li><a href="/contractors">المقاولين</a></li>
 			    <li><a href="/promoters">المناديب</a></li>
 			    <li><a href="/presents">الهدايا</a></li>

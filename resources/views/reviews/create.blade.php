@@ -5,8 +5,13 @@
 	{!! Form::open(['route'=>'reviews.store', 'method' => 'post']) !!}
 	
 	<!-- <form> -->
-	
-	
+		اسم المقاول:
+		<select id="contractor_id" name="contractor_id">
+				@foreach($contractors as $contractor)
+					<option value=" {{ $contractor->Contractor_Id }} "> {{ $contractor->Name }} </option>
+				@endforeach
+		</select><br/>
+
 		GPS: 
 			<input type="text" name="GPS" placeholder="GPS" autofocus/><br/>
 		عدد المواقع:
@@ -40,7 +45,7 @@
 				<option value="6">6</option>
 				<option value="7">7</option>
 			</select><br/>
-		
+
 		<input type="submit" value="حفظ">
 
 	<!-- </form>	 -->

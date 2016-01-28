@@ -15,7 +15,6 @@
 		    <td>امتار الخشب</td>
 		    <td>الهالك من الخشب</td>
 		    <td>عدد الخلاطات</td>
-
 		    <td>رأس المال</td>
 		    <td>ظريقة الدفع</td>
 		    <td>مقاولين الباطن</td>
@@ -23,7 +22,7 @@
 
 		    <td>ملاحظات</td>
 
-		    <td>المقاول</td>
+		    <td>contractor name</td>
 
 	  	</tr>
 
@@ -51,7 +50,7 @@
 			    </td>
 
 			    <td>
-			    	<td>{{$review->Contractor_Id}}</td>
+			    	{{$review->getcontractor->Name}}
 			    </td>
 		  	</tr>
 		@endforeach

@@ -9,9 +9,9 @@ class Contractor extends Model
  
 	protected $primaryKey = 'Contractor_Id';
 
-	public function review()
+	public function getreview()
     {
-        return $this->hasOne('App\Review');
+        return $this->hasOne('App\Review','Contractor_Id');
     }
 
 }
