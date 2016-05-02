@@ -28,8 +28,7 @@ class CreatePresentsTable extends Migration {
 			      ->references('Contractor_Id')->on('contractors')
 			      ->onDelete('cascade')
 			      ->onupdate('cascade');
-			     
-			
+	
 
 					});
 	}

@@ -14,18 +14,46 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->increments('Review_Id');
-            $table->string('GPS', 500)->default(null);
-            $table->integer('Project_NO')->default(null);
-            $table->integer('Cement_Consuption')->default(null);
-            $table->integer('Cement_Bricks')->default(null);
-            $table->integer('Steel_Consumption')->default(null);
-            $table->integer('Wood_Meters')->default(null);
-            $table->integer('Wood_Consumption')->default(null);
-            $table->integer('No_Of_Mixers')->default(null);
-            $table->string('Capital', 150)->default(null);
-            $table->enum('Credit_Debit', ['كاش', 'اجل','كاش واجل','مستخلصات حكومية']);
-            $table->string('Sub_Contractor', 150)->default(null);
-            $table->enum('Class', ['1','2','3','4','5','6','7']);
+
+            $table->string('Long', 500)->nullable();
+            $table->string('Lat', 500)->nullable();
+
+            $table->string('Project_NO')->nullable();
+            $table->string('Portland_Cement')->nullable();
+            $table->string('Resisted_Cement')->nullable();
+            $table->string('Eng_Cement')->nullable();
+            $table->string('Saed_Cement')->nullable();
+            $table->string('Fanar_Cement')->nullable(); 
+            $table->string('Workers')->nullable();            
+            $table->string('Cement_Consuption')->nullable();
+            $table->string('Cement_Bricks')->nullable();
+            $table->string('Steel_Consumption')->nullable();
+
+            $table->string('Has_Wood')->nullable();
+
+            $table->string('Wood_Meters')->nullable();
+            $table->string('Wood_Consumption')->nullable();
+
+            $table->string('Has_Mixers')->nullable();
+
+            $table->integer('No_Of_Mixers')->nullable();
+            $table->string('Capital', 150)->nullable();
+            $table->string('Credit_Debit')->nullable();
+
+            $table->string('Has_Sub_Contractor', 150)->nullable();
+            $table->string('Sub_Contractor1', 150)->nullable();
+            $table->string('Sub_Contractor2', 150)->nullable();
+
+            $table->string('Seller1', 50)->nullable();
+            $table->string('Seller2', 50)->nullable();
+            $table->string('Seller3', 50)->nullable();
+            $table->string('Seller4', 50)->nullable();
+            $table->string('Status',50)->nullable();
+            $table->string('Call_Status',50)->nullable();
+            $table->string('Area',50)->nullable();
+            $table->string('Cont_Type',50)->nullable();
+
+
             $table->timestamps();
             
             $table->integer('Contractor_Id')->unsigned();

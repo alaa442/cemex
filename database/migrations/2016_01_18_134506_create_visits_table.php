@@ -14,21 +14,24 @@ class CreateVisitsTable extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->increments('Visits_id')->unsigned();
-            $table->string('Government',150)->nullable();
-            $table->string('Adress',150)->nullable();
+            $table->string('Government',150);
+            $table->string('City',150);
+            $table->integer('Month');
+            $table->string('Adress',150);
             $table->string('GPS',500)->nullable();
-            $table->string('Backcheck');
+            $table->string('Backcheck')->nullable();
             $table->string('Comments',100)->nullable();
-            $table->string('Project_Type');
+            $table->string('Project_Type')->nullable();
             $table->string('Project_Current_State',300)->nullable();
-            $table->string('Cement_Type');
+            $table->string('Cement_Type')->nullable();
             $table->integer('Cement_Quantity')->nullable();
-            $table->string('Visit_Reason');
-            $table->string('Call_Reason');
-            $table->date('Date_Visit_Call')->nullable();
+            $table->string('Visit_Reason')->nullable();
+            $table->string('Call_Reason')->nullable();
+            $table->date('Date_Visit_Call');
             $table->integer('Points')->nullable();
             $table->integer('OrderNo')->nullable();
             $table->string('CV_Comments',500)->nullable();
+            $table->string('Seller_Name')->nullable();
             $table->string('Project_Type_Comments',500)->nullable();
             $table->integer('Pormoter_Id')->unsigned();
             $table->foreign('Pormoter_Id')->references('Pormoter_Id')->on('promoters')->onDelete('cascade')->onUpdate('cascade');

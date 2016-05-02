@@ -1,15 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
 use App\User;
+use Auth;
+use Illuminate\Http\Request;
+
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
-{
+{ 
+      use AuthenticatesAndRegistersUsers, ThrottlesLogins;
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -28,7 +31,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/auth.login';
 
     /**
      * Create a new authentication controller instance.
@@ -69,4 +72,12 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+  
+
+
+
+
+      
+   
+  
 }

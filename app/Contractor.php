@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contractor extends Model
 {
- 
+    
+    
 	protected $primaryKey = 'Contractor_Id';
 
 	public function getreview()
@@ -28,8 +29,8 @@ class Contractor extends Model
 	public function presents()
     {
         return $this->hasMany('App\Present');
-        
-    
+          
     }
+    
 
 }

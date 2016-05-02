@@ -2,7 +2,7 @@
 
 @section('content')
 <br/>
-<table border="2">
+<table class="table table-striped table-bordered table-hover">
 	<tr>
 		<td>رقم المسلسل</td>
 		<td>{{ $admin->Admin_Id}}</td>

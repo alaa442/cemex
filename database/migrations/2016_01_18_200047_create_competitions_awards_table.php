@@ -18,6 +18,7 @@ class CreateCompetitionsAwardsTable extends Migration {
 			$table->integer('Total_Amount')->unsigned();
 			$table->integer('competition_id')->unsigned();
 			$table->integer('award_id')->unsigned();
+			
 			$table->foreign('competition_id')
 			      ->references('Competitions_Id')->on('competitions')
 			      ->onDelete('cascade')

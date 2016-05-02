@@ -1,77 +1,199 @@
 @extends('master')
 
 @section('content')
-	
-	{!! Form::open(['route'=> ['contractors.update',$contractor->Contractor_Id ], 'method' => 'put']) !!}
-	
-	<!-- <form> -->
-		Name: 
-			<input type="text" name="name" value="{{$contractor->Name}}" /><br/>
-		Goverment:
-			<input type="text" name="goverment" value="{{$contractor->Goverment}}" /><br/>
-		City:
-			<input type="text" name="city" value="{{$contractor->City}}" /><br/>
-		Address:
-			<input type="text" name="address" value="{{$contractor->Address}}" /><br/>
-		Education:			
-			<select id="education" name="education" value="{{$contractor->Education}}">
-				<option value="no_education">No Education</option>
-				<option value="low_education">Low Education</option>
-				<option value="medium_education">Medium Education</option>
-				<option value="high">High Education</option>
-			</select><br/>
-		Facebook_Account:
-			<input type="text" name="facebook" value="{{$contractor->Facebook_Account}}" /><br/>
-		Computer:
-			<select id="computer" name="computer" value="{{$contractor->Computer}}">
-				<option value="yes">نعم</option>
-				<option value="no">لا</option>
-			</select><br/>
-		Email:
-			<input type="email" name="mail" value="{{$contractor->Email}}"/><br/>
-		Birthday:
-			<input type="date" name="birthday" value="{{$contractor->Birthday}}"/><br/>
-		Tele1:
-			<input type="text" name="tele1" value="{{$contractor->Tele1}}"/><br/>
-		Tele2:
-			<input type="text" name="tele2" value="{{$contractor->Tele2}}"/><br/>
-		Job:
-			<input type="text" name="job" value="{{$contractor->Job}}"/><br/>
-		Intership_No:
-			<select id="intership_no" name="intership_no" value="{{$contractor->Intership_No}}" >
-				<option value="0">0</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-			</select><br/>
-		Seller1:
-			<input type="text" name="seller1" value="{{$contractor->Seller1}}"/><br/>
-		Seller2:
-			<input type="text" name="seller2" value="{{$contractor->Seller2}}" /><br/>
-		Seller3:
-			<input type="text" name="seller3" value="{{$contractor->Seller3}}"/><br/>
-		Seller4:
-			<input type="text" name="seller4" value="{{$contractor->Seller4}}"/><br/>
-		Pormoter_Id:
-			<select id="pormoter_id" name="pormoter_id" value="{{$contractor->Pormoter_Id}}">
-				<option value="1">1</option>
-			</select><br/>
-		Phone_Type:
-			<select id="phone_type" name="phone_type" value="{{$contractor->Phone_Type}}">
-				<option value="yes">نعم</option>
-				<option value="no">لا</option>
-			</select><br/>
-		Nickname:
-			<input type="text" name="nickname" value="{{$contractor->Nickname}}"/><br/>
-	
-		<input type="submit" value="حفظ">
 
-	<!-- </form>	 -->
+{!! Form::open(['route'=> ['contractors.update',$contractor->Contractor_Id ], 'method' => 'put']) !!}
+	
+<table class="table table-striped table-bordered table-hover">
+
+<tr>
+	<td>اسم المقاول </td>
+	<td><input type="text" name="name" id="name" value="{{$contractor->Name}}" /></td>
+	<td><span type="hidden" class="label label-danger">{{ $errors->first('name') }}</span></td>
+<tr/>
+<tr>	
+    <td>المحافظة</td>
+	<td>
+		<select id="goverment" name="goverment" class="chosen-select chosen-rtl" >
+    		<option value=" "> اختر محافظة</option>
+			    @foreach($govs as $gov)
+			      <option value ="{{$gov->gov_name}}"> {{$gov->gov_name}} </option>
+			    @endforeach
+  		</select> 
+	</td>
+	<td><span class="label label-danger">{{ $errors->first('goverment') }}</span></td>
+</tr>
+<tr>
+	<td>المركز</td>
+	<td><input type="text" name="city"  value="{{$contractor->City}}" /></td>
+	<td><span class="label label-danger">{{ $errors->first('city') }}</span></td>
+</tr>
+<tr>
+	<td>العنوان</td>
+	<td><input type="text" name="address"  value="{{$contractor->Address}}" /></td>
+<td><span class="label label-danger">{{ $errors->first('address') }}</span></td>
+</tr>
+<tr>
+	<td>التليفون 1</td>
+	<td><input type="text" name="tele1"  value="{{$contractor->Tele1}}"/></td>
+    <td><span class="label label-danger" >{{ $errors->first('tele1') }}</span></td>
+</tr>
+<tr>
+	<td>التليفون 2</td>
+	<td><input type="text" name="tele2" value="{{$contractor->Tele2}}"/></td>
+	<td><span class="label label-danger" >{{ $errors->first('tele2') }}</span></td>
+</tr>
+		
+<tr>
+	<td>التليفون الارضي</td>		
+	<td><input type="text" name="home_phone" value="{{$contractor->Home_Phone}}"/></td>
+	<td><span class="label label-danger" >{{ $errors->first('home_phone') }}</span></td>
+</tr>
+
+<tr>	
+	<td>الوظيفة</td>
+	<td><input type="text" name="job"  value="{{$contractor->Job}}"/></td>
+	<td><span class="label label-danger">{{ $errors->first('job') }}</span></td>
+</tr>
+
+<tr>
+	<td> اللقب </td>
+	<td><input type="text" name="fame" id="fame" value="{{$contractor->Fame}}" /></td>
+    <td><span class="label label-danger">{{ $errors->first('fame') }}</span></td>
+<tr>
+
+<tr>
+  <td>التعليم</td>
+  <td>{!!Form::select('education', array(' '=>' ','no_education' => 'No Education', 'low_education' => 'Low Education','medium_education' => 'Medium Education','high education' => 'High Education'));!!}  </td>
+      <td><span type="hidden" class="label label-danger"></span></td>
+</tr>
+
+<tr>	
+	<td>اسم الشهرة</td>		
+	<td><input type="text" name="nickname" value="{{$contractor->Nickname}}"/></td>
+	<td><span class="label label-danger">{{ $errors->first('nickname') }}</span></td>
+</tr>   
+<tr>	
+	<td>الديانة</td>		
+	<td><input type="text" name="religion" value="{{$contractor->Religion}}"/></td>
+	<td><span class="label label-danger" >{{ $errors->first('religion') }}</span></td>
+</tr>
+
+<tr>
+	<td>البريد الاليكتروني</td>
+	<td><input type="email" name="mail" value="{{$contractor->Email}}"/></td>
+	<td><span class="label label-danger">{{ $errors->first('mail') }}</span></td>
+</tr>
+
+<tr>  
+ <td> هل يمتلك حساب فيسبوك</td>
+  <td>
+    {!!Form::select('has_facebook', array(' '=>' ','لا' => 'لا' ,'نعم' => 'نعم'));!!}</td>
+  <td>
+<span type="hidden" class="label label-danger">{{ $errors->first('has_facebook') }}</span>
+  </td>
+</tr>
+
+<tr>
+	<td>حساب الفيسبوك</td>
+	<td><input type="text" name="facebook" value="{{$contractor->Facebook_Account}}" />
+	<td><span type="hidden" class="label label-danger"></span></td>
+</tr>
+
+<tr>
+    <td>نوع التليفون</td>
+	<td>
+    {!!Form::select('phone_type', array(' ' => ' ','حديث' => 'حديث' ,'قديم' => 'قديم'));!!}</td>
+  <td>
+		<td><span type="hidden" class="label label-danger"></span></td>
+
+</tr>
+
+<tr>
+	<td>هل يملك كمبيوتر</td>
+	<td>
+    {!!Form::select('computer', array(' '=> ' ','لا' => 'لا' ,'نعم' => 'نعم'));!!}</td>
+  <td>
+	<td><span type="hidden" class="label label-danger"></span></td>
+
+</tr>
+
+<tr>
+	<td>تاريخ الميلاد</td>
+	<td><input type="date" name="birthday" value="{{$contractor->Birthday}}"/></td>
+	<td><span class="label label-danger">{{ $errors->first('birthday') }}</span></td>
+</tr>
+
+<tr>
+  <td>اسم المندوب</td>
+<td>
+<select id="pormoter_id" name="pormoter_id" class = "chosen-select chosen-rtl">
+  <option name="pormoter_id" value =" ">
+  		اختر مندوب
+  </option>
+</select> 
+</td>
+<td><span class="label label-danger">{{ $errors->first('pormoter_id') }}</span></td>
+</tr>
+
+<tr>
+	<td>الفئة</td>
+	<td>{!!Form::select('class', array('0' => '0', '1' => '1','2' => '2','3' => '3','4' => '4', '5' => '5','6' => '6','7' => '7'));!!}  </td>
+		<td><span type="hidden" class="label label-danger"></span></td>
+
+</tr>
+
+
+<tr>
+    <td><input type="submit" id="submit" value="حفظ"></td>
+    	<td><span type="hidden" class="label label-danger"></span></td>
+
+	<td><span type="hidden" class="label label-danger"></span></td>
+
+</tr>	
+
 	{!! Form::close() !!} 
+</table>
+
+<script type="text/javascript">
+	 $(document).ready(function() {                 
+        $('#goverment')  .chosen({
+              width: '100%',
+              no_results_text: 'لا توجد نتيجة'
+        });
+        $('#pormoter_id').chosen({
+            width: '100%',
+            no_results_text: 'لا توجد نتيجة'
+        });
+        $("#goverment").change(function() {      
+            $.getJSON("contractors/promoters/" + $("#goverment").val(), function(data) {
+                console.log(data);
+                var $promoters = $("#pormoter_id");
+                $("#pormoter_id").chosen("destroy");
+                $promoters.empty();
+                $.each(data, function(key, value) {
+                    $promoters.append('<option value="' + key +'">' + value + '</option>');
+                });
+            
+              $('#pormoter_id').chosen({
+                width: '100%',
+                no_results_text: 'لا توجد نتيجة'
+              });
+
+              $("#pormoter_id").trigger("chosen:updated");
+                  $("#pormoter_id").trigger("change");             
+          });
+                  
+          $('#pormoter_id').chosen({
+            width: '100%',
+            no_results_text: 'لا توجد نتيجة'
+          });
+
+      });
+
+    });
+</script>
+
 @stop
 
  

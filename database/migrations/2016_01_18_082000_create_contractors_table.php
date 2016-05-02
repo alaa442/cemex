@@ -13,29 +13,36 @@ class CreateContractorsTable extends Migration
     public function up()
     {
         Schema::create('contractors', function (Blueprint $table) {
-            $table->increments('Contractor_Id');
-            $table->string('Name', 150)->nullable(false);
-            $table->string('Goverment', 100)->nullable(false);
-            $table->string('City', 100)->nullable(false);
-            $table->string('Adress', 150)->default(null);
-            $table->enum('Education', ['No Education','Low Education','Medium Education','High Education']);
-            $table->string('Facebook_Account', 150)->default(null);
-            $table->enum('Computer', ['نعم','لا']);
-            $table->string('Email', 150)->default(null);
-            $table->date('Birthday');
-            $table->integer('Tele1')->nullable(false);
-            $table->integer('Tele2')->default(null);
-            $table->string('Job', 100)->default(null);
-            $table->string('Intership_No', 50)->default(null);
-            $table->string('Type_Contractor', 50)->default(null);
-            $table->string('Seller1', 50)->default(null);
-            $table->string('Seller2', 50)->default(null);
-            $table->string('Seller3', 50)->default(null);
-            $table->string('Seller4', 50)->default(null);
-            $table->enum('Phone_Type', ['نعم','لا']);
-            $table->string('Nickname', 50)->default(null);
-            //promoter id forign key
+            $table->increments('Contractor_Id')->unsigned();
+            $table->string('Name', 150);
+            $table->string('Goverment', 100);
+            $table->string('City', 100)->nullable();
+            $table->string('Address', 150)->nullable();
+            $table->string('Education')->nullable();
+            $table->string('Has_Facebook', 150)->nullable();
+            $table->string('Facebook_Account', 150)->nullable();
+            $table->string('Computer')->nullable();
+            $table->string('Email', 150)->nullable();
+            $table->string('Birthday')->nullable();
+            $table->string('Tele1')->unique();
+            $table->string('Tele2')->unique()->nullable();
+            $table->string('Job', 100)->nullable();
+            $table->string('Class', 50)->nullable();
+            $table->string('Phone_Type')->nullable();
+            $table->string('Nickname', 50)->nullable();
+            $table->integer('Pormoter_Id')->unsigned();
+            $table->foreign('Pormoter_Id')
+                  ->references('Pormoter_Id')->on('promoters')
+                  ->onDelete('cascade')
+                  ->onupdate('cascade');
 
+            $table->string('Religion')->nullable();
+            $table->string('Home_Phone')->unique()->nullable();
+            $table->string('Code',40)->unique();
+            $table->string('Fame',40)->nullable();        
+
+           $table->timestamps();
+          
         });
     }
 
@@ -49,3 +56,4 @@ class CreateContractorsTable extends Migration
         Schema::drop('contractors');
     }
 }
+

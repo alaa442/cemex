@@ -15,7 +15,7 @@
 </tr>
 <tr>
  <td> <label for="inputName" class="control-label">الترتيب</label></td>
- <td><input type="number" name="Ranking" class="form-control" id="inputName"  value="{{$present->Ranking}}"  required></td>
+ <td><input type="number" name="Ranking" class="form-control" id="inputName"  value="{{$present->Ranking}}">{!!$errors->first('Ranking','<small class="label label-danger">:message</small>')!!}</td>
 </tr>
  <tr>
     <td> <label for="inputName" class="control-label">كود المسابقه</label></td>
@@ -23,7 +23,7 @@
 </tr>
 <tr>
     <td>  <label for="inputName" class="control-label">تاريخ التسليم</label></td>
- <td><input type="date" name="Delivery_Date" class="form-control"  value="{{$present->Delivery_Date}}" required></td>
+ <td><input type="date" name="Delivery_Date" class="form-control"  value="{{$present->Delivery_Date}}">{!!$errors->first('Delivery_Date','<small class="label label-danger">:message</small>')!!}</td>
 </tr>
 </table>
 <table class="table table-bordered table-hover">
@@ -66,7 +66,7 @@ $(function(){
   var tr=' <tr><th class="no">'+n+'</th>'+
   '<td>{!!Form::select('awards[]', $awards ,null,['class'=>'form-control','id' => 'prettify'])!!}</td>'+
   '<td><input type="number" name="Amount[]" class="form-control" id="inputName" placeholder="Enter Amount" required></td>'+
-  ' <td><a href="#" class="btn btn-danger delete">Delete</a></td></tr>';
+  ' <td><a href="#" class="btn btn-danger delete">حذف</a></td></tr>';
 $('.body').append(tr);
 i++;
 

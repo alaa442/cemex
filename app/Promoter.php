@@ -4,12 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Promoter extends Model
 {
 
 
     protected $primaryKey ='Pormoter_Id';
-      
+       protected $fillable = array(
+        'Pormoter_Name',
+    );
  
     public function getvisit()
   	{
@@ -21,6 +24,7 @@ class Promoter extends Model
 
     	return $this->hasMany('App\Contractor','Pormoter_Id');
     }
+
 
 
 }

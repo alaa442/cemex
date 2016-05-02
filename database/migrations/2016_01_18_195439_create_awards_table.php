@@ -17,7 +17,9 @@ class CreateAwardsTable extends Migration {
 			$table->increments('Awards_Id');
 			$table->timestamps();
 			$table->string('Name', 100)->unique();
-			
+			$table->integer('Total_Amount')->unsigned();
+			$table->decimal('Cost')->unsigned();
+			$table->integer('Status')->unsigned();		
 		});
 	}
 

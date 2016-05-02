@@ -3,15 +3,34 @@
     <head>
         <title>Database system</title>
 
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
         <html dir="rtl" lang="ar">
-
-        <meta charset="UTF-8">
-        <title>لوحة التحكم</title>
         <html xmlns="http://www.w3.org/1999/xhtml" dir="rtl">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+        <link href="/assets/css/business-casual.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
 
     <!-- hidden menu -->
 <script type="text/javascript" src="/assets/js/ddaccordion.js"></script>
@@ -47,57 +66,146 @@ ddaccordion.init({
     });
     
 </script>
-
 <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+
+<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-horizon.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/rtl.css">
+<style type="text/css">
+body{
+    
+   
+ 
+   font-family: 'zocial', sans-serif;
+}
 
+.footer {
+  position: absolute;
+   text-align: center;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 5%;
+  background-color: #f5f5f5;
+}
 
-<style>
-    html, body {
-                height: 100%;
-    }
-    .content {
-        text-align: center;
-        display: inline-block;
-    }
-
-    .title {
-        font-size: 60px;
-    }
-    .foot {
-        margin-right: 5px;
-    }
 </style>
+
+
 </head>
 
 <body>
-        <div class="row bar">
-            لوحة التحكم
-        </div>
+
+
+    <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+     <a class="navbar-brand" href="#">Marketing system</a>
+      
+    </div>
+ <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">  
+                <li><a href="/admins">الادارة</a></li>
+                <li><a href="/promoters">المناديب</a></li>
+                <li><a href="/contractors">المقاولين</a></li>
+                <li><a href="/reviews">مراجعة البيانات</a></li>
+                <li><a href="/visits">الزيارات</a></li>
+                <li><a href="/awards">الجوائز</a></li>
+                <li><a href="/competitions">المسابقات</a></li>
+                <li><a href="/presents">هدايا المقاولين</a></li>            
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right"> 
+      <a href="/"><img src="/assets/img/images.png"></a>
+    </ul>
+  </div>
+  </div>
+</nav>
+
+
+   <div class="container">
 
         <div class="row">
-            <div class="side_bar col-md-3" id="leftCol">
-                <ul class="nav nav-stacked" id="sidebar">
-                    <li><a href="/admins">الادارة</a></li>
-                    <li><a href="/contractors">المقاولين</a></li>
-                    <li><a href="/promoters">المناديب</a></li>
-                    <li><a href="/presents">الهدايا</a></li>
-                    <li><a href="/awards">جوائز المندوبين</a></li>
-                    <li><a href="/reviews">مراجعة البيانات</a></li>
-                    <li><a href="/visits">الزيارات</a></li>
-                    <li><a href="/competitions">المسابقات</a></li>
-                </ul>
+            <div class="box">
+                <div class="col-lg-12 text-center">
+                    <div id="carousel-example-generic" class="carousel slide">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators hidden-xs">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                           
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img class="img-responsive img-full" src="/assets/img/5.jpg" alt="">
+                            </div>
+                            <div class="item">
+                                <img class="img-responsive img-full" src="/assets/img/1.jpg" alt="">
+                            </div>
+                            <div class="item">
+                                <img class="img-responsive img-full" src="/assets/img/3.jpg" alt="">
+                            </div>
+                <div class="item">
+                                <img class="img-responsive img-full" src="/assets/img/4.jpg" alt="">
+                            </div>
+                
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                            <span class="icon-prev"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                            <span class="icon-next"></span>
+                        </a>
+                    </div>
+                    <h2 class="brand-before">
+                        <small>Welcome to</small>
+                    </h2>
+                    <h1 class="brand-name">Cemex DB System</h1>
+                    <hr class="tagline-divider">
+                    <h2>
+                        <small>By
+                            <strong>Digital Marketing Team</strong>
+                        </small>
+                    </h2>
+                </div>
+            </div>
         </div>
 
-        <div class="content">
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/>
-            <div class="title"> &nbsp; &nbsp; &nbsp;&nbsp; تجميع الداتا الخاصة بالمقاولين &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;</div>
-            <br/><br/><br/><br/><br/><br/><br/>
-            <br/><br/><br/><br/><br/><br/><br/>
+       
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>Copyright &copy; Digital Marketing Team <a href="http://www.cemex.com/">cemex.com</a></p>
+
+                </div>
+            </div>
         </div>
-        <div class="row">
-            <p>حقوق النشر محفوظة</p>
-        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="/assets/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+
 
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>

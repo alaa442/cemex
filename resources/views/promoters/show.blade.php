@@ -2,25 +2,47 @@
 @extends('master')
 
 @section('content')
-    Visits      @foreach ($promoters->getvisit as $visit)
-        <li>{{$visit->Visits_id}}</li>
-        <li>{{$visit-> Government}}</li>
-      @endforeach
+         
+ 
 
-<br> 
-  Contractors
-   @foreach ($promoters->getcontractor as $contractor)
-        <li>{{$contractor->	Name}}</li>
-        <li>{{$contractor-> Contractor_Id}}</li>
-      @endforeach
+<table class="table table-bordered table-hover">
+<thead>
+<th>
+Contractors
+</th>	
+<th>
+visits
+</th>
+</thead>	
+<tbody>
+@foreach ($promoters->getcontractor as $contractor)
+<tr>
+<td>{{$contractor->	Name}}</td>
+<td>
+ @foreach ($contractor->getproject as $visit)
+ <div>
+ <span class="btn btn-primary">{{$visit-> Government}}</span>
+ <span class="btn btn-primary">{{$visit-> Cement_Type}}</span>
+ <span class="btn btn-primary">{{$visit-> Cement_Quantity}}</span>
+  <span class="btn btn-primary">{{$visit-> Visit_Reason}}</span>
+ </div>
+  @endforeach
+</td>
+</tr>
+ @endforeach
+</tbody>
+
+
+
+</table>
+
 
 
 
     
 
 
-  
-</div>
+
 @stop
 
 
