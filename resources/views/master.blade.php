@@ -102,7 +102,20 @@ body{
 
 </head>
 
-<body class="rtl">
+<script type="text/javascript">
+  function deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+ 
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+}
+</script>
+
+<body class="rtl" onunload="deleteAllCookies()">
 
 
 <nav class="navbar navbar-inverse">
@@ -121,17 +134,20 @@ body{
     </div>
  <div class="collapse navbar-collapse" id="myNavbar">
   
-      <ul class="nav navbar-nav">
-    
+      <ul class="nav navbar-nav">   
      	    <li><a href="/admins">الادارة</a></li>
           <li><a href="/promoters">المناديب</a></li>
 			    <li><a href="/contractors">المقاولين</a></li>
-			    <li><a href="/reviews">مراجعة البيانات</a></li>
+			    <li><a href="/Charts/TypesCharts">مراجعة البيانات</a></li>
 			    <li><a href="/visits">الزيارات</a></li>
-  			   <li><a href="/awards">الجوائز</a></li>
-  			   <li><a href="/competitions">المسابقات</a></li>
-  			   <li><a href="/presents">هدايا المقاولين</a></li>
-           <li><a href="/Kpi/create">KPI</a></li>
+  			  <li><a href="/awards">الجوائز</a></li>
+  			  <li><a href="/competitions">المسابقات</a></li>
+  			  <li><a href="/presents">هدايا المقاولين</a></li>
+          <li><a href="/Kpi/create">KPI</a></li>
+      </ul><br/>
+      <ul class="nav navbar-nav">  
+          <li><a href="/contractors/generate/report">تقارير المقاولين</a></li>
+          <li><a href="/reviews/generate/report/">تقارير مراجعة البيانات</a></li>
 		    
     </ul>
 

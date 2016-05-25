@@ -165,11 +165,13 @@
     $(document).ready(function() {                 
         $('#goverment')  .chosen({
               width: '100%',
-              no_results_text: 'لا توجد نتيجة'
+              no_results_text: 'لا توجد نتيجة',
+              search_contains:true,
         });
         $('#pormoter_id').chosen({
             width: '100%',
-            no_results_text: 'لا توجد نتيجة'
+            no_results_text: 'لا توجد نتيجة',
+            search_contains:true,
         });
         $("#goverment").change(function() {      
             $.getJSON("contractors/promoters/" + $("#goverment").val(), function(data) {

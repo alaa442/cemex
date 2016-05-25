@@ -1,38 +1,14 @@
 @extends('master')
 @section('content')
-<h4>Contractors Chart Analysis</h4>
-<div id="perf_div"></div>
-{!! \Lava::render('ColumnChart', 'MyStocks', 'perf_div') !!}
-
-<?php
-	if(!empty($_COOKIE['TypeTele1Err'])) {	    
-		echo "<div id='TypeTele1Err'><div class='alert alert-block alert-danger fade in center'>";
-		echo $_COOKIE['TypeTele1Err'];
-		echo "</div> </div>";
-	} 
-
-?>
-
-<?php
-	if(!empty($_COOKIE['FileError'])) {	    
-		echo "<div id='FileError'><div class='alert alert-block alert-danger fade in center'>";
-		echo $_COOKIE['FileError'];
-		echo "</div> </div>";
-	} 
-
-?>
-
-<?php
-	if(!empty($_COOKIE['Tele1Error'])) {	    
-	echo "<div id='Tele1Error'><div class='alert alert-block alert-danger fade in center'>";
-		echo $_COOKIE['Tele1Error'];
-		echo "</div> </div>";
-	} 
-?>
 
 <section class="panel panel-primary">
 <div class="panel-body">
+
+
 <a href="/contractors/create" class="btn btn-primary" style="margin-bottom: 20px;"> أضافة مقاول جديد</a>
+
+
+
 <table class="table table-hover table-bordered  dt-responsive nowrap display contractors" cellspacing="0" width="100%">
   <thead>
   		<tr>
@@ -85,14 +61,7 @@
 			<td>{{$contractor->Phone_Type}}</td>
 			<td>{{$contractor->Computer}}</td>
 			<td>{{$contractor->Birthday}}</td>
-			<td>
-				@if ($contractor->getpromoter)
-				    {{$contractor->getpromoter->Pormoter_Name}}
-				@else
-				    لا يوجد
-				@endif 
-
-			</td>
+			<td>{{$contractor->getpromoter->Pormoter_Name}}</td>
 			<td>{{$contractor->Class}}</td>
 		  	<td>{{$contractor->Religion}}</td>				
 					
@@ -166,18 +135,12 @@ table.columns().every( function () {
 </script>
 
 
-{!!Form::open(['action'=>'ContractorsController@importcontractor','method' => 'post','files'=>true])!!}
-    <input type="file" name="file" class="btn btn-primary"/>
-    <input type="submit" name="submit" value="submit" class="btn btn-primary" style="margin-bottom: 20px;"/> 	
-{!!Form::close()!!}
+</section>
 
-{!!Form::open(['action'=>'ContractorsController@expotcontractor','method' => 'post'])!!} 	
+
+{!!Form::open(['action'=>'ContractorsController@ExportFilterContractors','method' => 'post'])!!} 	
   	<input type="submit" name="export" value="تحميل الملف" class="btn btn-primary" style="margin-bottom: 20px;"/>
 
 {!!Form::close()!!}
 
-</div>
-
-
-</section>
 @stop

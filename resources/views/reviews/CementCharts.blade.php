@@ -1,11 +1,27 @@
 @extends('master')
+@section('title') analytics:: @parent @stop
 @section('content')
+
+<div class="row">
+    <div class="page-header">
+        <h2>Reviews analytics</h2>
+    </div>
+</div>
+
+<h4>Chart analysis for cement types usage</h4>
+<div id="perf_div"></div>
+{!! \Lava::render('ColumnChart', 'MyStocks', 'perf_div') !!}
+
+<br/><br/>
+
+<h4>Chart analysis for cement quantites</h4>
+<div id="perf_div1"></div>
+{!! \Lava::render('ColumnChart', 'MyStocks1', 'perf_div1') !!}
+
+<br/><br/><br/>
 
 <section class="panel panel-primary">
 <div class="panel-body">
-@if($errors->any())
-<h4>{{$errors->first()}}</h4>
-@endif
 
 <a href="/reviews/create" class="btn btn-primary">اضافة بيانات</a>	
 <br/><br/>
@@ -14,70 +30,70 @@
 	<thead>
 	    <tr>
 
-		    <th>رقم المسلسل</th>
+		    <td>رقم المسلسل</td>
 
-		    <th>الحالة</th>
-		    <th>حالة المكالمة</th>
-		    <th>المنطقة</th>		    
-		    <th>تصنيف المقاول</th>
+		    <td>الحالة</td>
+		    <td>حالة المكالمة</td>
+		    <td>المنطقة</td>		    
+		    <td>تصنيف المقاول</td>
 		    
-		    <th>المهنة</th>
-		    <th>Area</th>
-		    <th>Gov</th>
-		    <th>Distric</th>
-		    <th>اللقب</th>
+		    <td>المهنة</td>
+		    <td>Area</td>
+		    <td>Gov</td>
+		    <td>Distric</td>
+		    <td>اللقب</td>
 
-		    <th>اسم المقاول</th>
-		    <th>Education</th>
-		    <th>اسم الشهرة</th>
-		    <th>الديانة</th>
+		    <td>اسم المقاول</td>
+		    <td>Education</td>
+		    <td>اسم الشهرة</td>
+		    <td>الديانة</td>
 
-		    <th>رقم التليفون 1</th>
-		    <th>رقم التليفون 2</th>
-		    <th>التليفون الارضي</th>
+		    <td>رقم التليفون 1</td>
+		    <td>رقم التليفون 2</td>
+		    <td>التليفون الارضي</td>
 
-		    <th>العنوان بالتفصيل</th>
-		    <th>Long</th>
-		    <th>Lat</th>
+		    <td>العنوان بالتفصيل</td>
+		    <td>Long</td>
+		    <td>Lat</td>
 
-		    <th>البريد الاليكتروني</th>
-		    <th>حساب الفيسبوك</th> 
-		    <th>هل يمتلك هاتف ذكي</th>
+		    <td>البريد الاليكتروني</td>
+		    <td>حساب الفيسبوك</td> 
+		    <td>هل يمتلك هاتف ذكي</td>
 		    
-		    <th>متوسط الاستهلاك "الاسمنت العادي"</th>
-		    <th>متوسط الاستهلاك "اسمنت المقاوم"</th>
-		    <th>متوسط الاستهلاك "اسمنت المهندس"</th>
-		    <th>متوسط الاستهلاك "اسمنت الصعيد"</th>
-		    <th>متوسط الاستهلاك "اسمنت الفنار"</th>
+		    <td>متوسط الاستهلاك "الاسمنت العادي"</td>
+		    <td>متوسط الاستهلاك "اسمنت المقاوم"</td>
+		    <td>متوسط الاستهلاك "اسمنت المهندس"</td>
+		    <td>متوسط الاستهلاك "اسمنت الصعيد"</td>
+		    <td>متوسط الاستهلاك "اسمنت الفنار"</td>
 
-		    <th>هل يكتلك كمبيوتر</th>
-		    <th>تاريخ الميلاد</th>
+		    <td>هل يكتلك كمبيوتر</td>
+		    <td>تاريخ الميلاد</td>
 
-		    <th>تاجر الاسمنت 1</th>
-		    <th>تاجر الاسمنت 2</th>
-		    <th>تاجر الاسمنت 3</th>
-		    <th>تاجر الاسمنت 4</th>
+		    <td>تاجر الاسمنت 1</td>
+		    <td>تاجر الاسمنت 2</td>
+		    <td>تاجر الاسمنت 3</td>
+		    <td>تاجر الاسمنت 4</td>
 
-		    <th>اسم المندوب</th>
+		    <td>اسم المندوب</td>
 
-		    <th>متوسط عدد المواقع في الشهر</th>
-		    <th>متوسط استهلاك الاسمنت</th>
-		    <th>متوسط استهلاك الطوب الاسمنتي</th>
-		    <th>متوسط اهالك من الخشب</th>
+		    <td>متوسط عدد المواقع في الشهر</td>
+		    <td>متوسط استهلاك الاسمنت</td>
+		    <td>متوسط استهلاك الطوب الاسمنتي</td>
+		    <td>متوسط اهالك من الخشب</td>
 
-		    <th>متوسط استهلاك الحديد</th>
-		    <th>عدد العمال</th>
+		    <td>متوسط استهلاك الحديد</td>
+		    <td>عدد العمال</td>
 
-		    <th>هل يمتلك خشب</th>
-		    <th>امتار الخشب</th>
-		    <th>هل يمتلك خلاطة</th>
+		    <td>هل يمتلك خشب</td>
+		    <td>امتار الخشب</td>
+		    <td>هل يمتلك خلاطة</td>
 
-		    <th>عدد الخلاطات</th>
-		    <th>رأس المال</th>
-		    <th>طريقة الدفع</th>
-		    <th>هل يتعامل مع مقاولين من الباطن</th>		   
+		    <td>عدد الخلاطات</td>
+		    <td>رأس المال</td>
+		    <td>طريقة الدفع</td>
+		    <td>هل يتعامل مع مقاولين من الباطن</td>		   
 		      
-		    <th>ملاحظات</th>
+		    <td>ملاحظات</td>
 		</tr>
 	</thead>
 
@@ -228,4 +244,10 @@ table.columns().every( function () {
 
 
 </section>
-@stop
+
+
+
+
+
+
+@endsection

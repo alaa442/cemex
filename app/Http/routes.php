@@ -75,23 +75,35 @@ Route::get('/error', function () {
     return view('/error');
 });
 
+//contractor
 Route::post('importcontractor','ContractorsController@importcontractor');
 Route::post('expotcontractor','ContractorsController@expotcontractor');
 Route::post('/contractors/filter','ContractorsController@filter');
+Route::get('contractors/contractors/promoters/{gov}','ContractorsController@PromoterByGov');
+Route::get('contractors/{id}/contractors/promoters/{gov}','ContractorsController@EditPromoterByGov');
 
-Route::get('contractors/contractors/promoters/{gov}', 'ContractorsController@PromoterByGov');
-Route::get('contractors/{id}/contractors/promoters/{gov}', 'ContractorsController@EditPromoterByGov');
+//contractor report export
+Route::post('contractors/export/report','ContractorsController@ExportFilterContractors');
 
+//contractor chart
+Route::get('contractors/generate/report','ContractorsController@ContractorReport');
+Route::post('contractors/generate/report','ContractorsController@ReportResult');
+Route::get('contractors/generate/report/gov/{gov}','ContractorsController@CityByGov');
 
+//review
 Route::resource('/reviews','ReviewsController');
-Route::get('/reviews/create', function () {
-	$contractors = Contractor::all();
-	return view('reviews.create',compact('contractors'));
-});
-Route::post('/reviews/create', 'ReviewsController@store');
 Route::get('/reviews/destroy/{id}','ReviewsController@destroy');
 Route::post('importreview','ReviewsController@importreview');
 Route::post('exportreview','ReviewsController@exportreview');
+
+//review charts
+Route::get('/Charts/TypesCharts','ReviewsController@TypesCharts');
+Route::get('/Charts/QuqntityCharts','ReviewsController@QuqntityCharts');
+
+//review report
+Route::get('/reviews/generate/report/','ReviewsController@ReviewReport');
+Route::post('/reviews/generate/report/','ReviewsController@ReportResult');
+Route::post('/reviews/report/export','ReviewsController@ExportFilterReview');
 
 
 Route::resource('/admins','AdminsController');
@@ -106,8 +118,6 @@ Route::resource('/promoters','PromotersController');
 Route::get('/promoters/destroy/{id}','PromotersController@destroy');
 Route::post('importpromoters','PromotersController@importpromoters');
 Route::post('exportpromoters','PromotersController@exportpromoters');
-
-
 
 
 Route::resource('/visits','VisitsController');

@@ -112,7 +112,7 @@ body{
                 <li><a href="/admins">الادارة</a></li>
                 <li><a href="/promoters">المناديب</a></li>
                 <li><a href="/contractors">المقاولين</a></li>
-                <li><a href="/reviews">مراجعة البيانات</a></li>
+                <li><a href="/Charts/TypesCharts">مراجعة البيانات</a></li>
                 <li><a href="/visits">الزيارات</a></li>
                 <li><a href="/awards">الجوائز</a></li>
                 <li><a href="/competitions">المسابقات</a></li>

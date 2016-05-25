@@ -2,8 +2,7 @@
 
 @section('content')
 
- {!! Form::open() !!}
- 
+ {!! Form::open(['route'=>'reviews.store', 'method' => 'post']) !!}
  <!-- <form> -->
  <table class="table table-striped table-bordered table-hover">
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContractorsTable extends Migration
+class CreateContractorReportTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateContractorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contractors', function (Blueprint $table) {
+        Schema::create('contractor_reports', function (Blueprint $table) {
             $table->increments('Contractor_Id')->unsigned();
             $table->string('Name', 150);
             $table->string('Goverment', 100);
@@ -24,26 +24,25 @@ class CreateContractorsTable extends Migration
             $table->string('Computer')->nullable();
             $table->string('Email', 150)->nullable();
             $table->string('Birthday')->nullable();
-            $table->integer('Tele1')->unique();
-            $table->integer('Tele2')->unique()->nullable();
+            $table->string('Tele1')->unique();
+            $table->string('Tele2')->unique()->nullable();
             $table->string('Job', 100)->nullable();
             $table->string('Class', 50)->nullable();
             $table->string('Phone_Type')->nullable();
             $table->string('Nickname', 50)->nullable();
-            $table->integer('Pormoter_Id')->unsigned()->nullable();
+            $table->integer('Pormoter_Id')->unsigned();
             $table->foreign('Pormoter_Id')
                   ->references('Pormoter_Id')->on('promoters')
                   ->onDelete('cascade')
                   ->onupdate('cascade');
 
             $table->string('Religion')->nullable();
-            $table->integer('Home_Phone')->unique()->nullable();
+            $table->string('Home_Phone')->unique()->nullable();
             $table->string('Code',40)->unique();
             $table->string('Fame',40)->nullable();        
 
            $table->timestamps();
-          
-        });
+           });
     }
 
     /**
@@ -53,7 +52,6 @@ class CreateContractorsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('contractors');
+        //
     }
 }
-
