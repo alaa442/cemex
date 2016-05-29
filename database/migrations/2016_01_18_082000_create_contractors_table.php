@@ -15,7 +15,7 @@ class CreateContractorsTable extends Migration
         Schema::create('contractors', function (Blueprint $table) {
             $table->increments('Contractor_Id')->unsigned();
             $table->string('Name', 150);
-            $table->string('Goverment', 100);
+            $table->string('Goverment', 100)->nullable();
             $table->string('City', 100)->nullable();
             $table->string('Address', 150)->nullable();
             $table->string('Education')->nullable();
@@ -23,7 +23,7 @@ class CreateContractorsTable extends Migration
             $table->string('Facebook_Account', 150)->nullable();
             $table->string('Computer')->nullable();
             $table->string('Email', 150)->nullable();
-            $table->string('Birthday')->nullable();
+            $table->date('Birthday')->nullable();
             $table->integer('Tele1')->unique();
             $table->integer('Tele2')->unique()->nullable();
             $table->string('Job', 100)->nullable();

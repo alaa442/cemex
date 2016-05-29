@@ -49,10 +49,10 @@ class ContractorsController extends Controller
         $phone_arry = array('yesCount'=>0,'noCount'=>0,'notRecordedCount'=>0);
 
         for ($i=0; $i<count($contractors); $i++) {           
-            if ($contractors[$i]->Phone_Type == 'yes') {
+            if ($contractors[$i]->Phone_Type == 'نعم') {
                 $PhoneyesCount +=1;
             }
-            else if ($contractors[$i]->Phone_Type == 'no') {
+            else if ($contractors[$i]->Phone_Type == 'لا') {
                 $PhonenoCount +=1;
             }
             else if ($contractors[$i]->Phone_Type == null) {
@@ -81,10 +81,10 @@ class ContractorsController extends Controller
         $CompnotRecordedCount = 0; 
         $Computer_arry = array('yesCount'=>0,'noCount'=>0,'notRecordedCount'=>0);
         for ($i=0; $i<count($contractors); $i++) {           
-            if ($contractors[$i]->Computer == 'yes') {
+            if ($contractors[$i]->Computer == 'نعم') {
                 $CompyesCount +=1;
             }
-            else if ($contractors[$i]->Computer == 'no') {
+            else if ($contractors[$i]->Computer == 'لا') {
                 $CompnoCount +=1;
             }
             else if ($contractors[$i]->Computer == null) {
@@ -108,10 +108,10 @@ class ContractorsController extends Controller
         $Facebook_arry = array('yesCount'=>0,'noCount'=>0,'notRecordedCount'=>0);
 
         for ($i=0; $i<count($contractors); $i++) {           
-            if ($contractors[$i]->Has_Facebook == 'yes') {
+            if ($contractors[$i]->Has_Facebook == 'نعم') {
                 $FaceyesCount +=1;
             }
-            else if ($contractors[$i]->Has_Facebook == 'no') {
+            else if ($contractors[$i]->Has_Facebook == 'لا') {
                 $FacenoCount +=1;
             }
             else if ($contractors[$i]->Has_Facebook == null) {
@@ -138,10 +138,10 @@ class ContractorsController extends Controller
         for ($i=0; $i<count($contractors); $i++) { 
             $review = $contractors[$i]->getreview; 
             if ($review) {                            
-                if ($review->Has_Mixers == 'yes') {
+                if ($review->Has_Mixers == 'نعم') {
                         $MixyesCount +=1;
                     }
-                    else if ($review->Has_Mixers == 'no') {
+                    else if ($review->Has_Mixers == 'لا') {
                         $MixnoCount +=1;
                     }
                     else if ($review->Has_Mixers == null) {
@@ -168,10 +168,10 @@ class ContractorsController extends Controller
         for ($i=0; $i<count($contractors); $i++) { 
             $review = $contractors[$i]->getreview;
             if ($review) {                  
-                if ($review->Has_Sub_Contractor == 'yes') {
+                if ($review->Has_Sub_Contractor == 'نعم') {
                     $SubyesCount +=1;
                 }
-                else if ($review->Has_Sub_Contractor == 'no') {
+                else if ($review->Has_Sub_Contractor == 'لا') {
                     $SubnoCount +=1;
                 }
                 else if ($review->Has_Sub_Contractor == null) {
@@ -321,45 +321,45 @@ class ContractorsController extends Controller
     }
 
     public function importcontractor()
-    {   
-        // dd($_COOKIE);
-        unset ($_COOKIE['Tele1Error']);
-        unset ($_COOKIE['Tele1Error2']);
-        unset ($_COOKIE['FileError']);
-        unset ($_COOKIE['File1Error']);
-        unset ($_COOKIE['cookie']);  
-        // dd($_COOKIE);     
+    {     
         $contractors = Contractor::all();
         $importbtn= Request::get('submit');  
         if(isset($importbtn))
         {   
-            unset ($_COOKIE['Tele1Error']);
-            unset ($_COOKIE['Tele1Error2']);
-            unset ($_COOKIE['FileError']);
-            unset ($_COOKIE['File1Error']);
-            unset ($_COOKIE['cookie']);  
             if(!Input::file('file')){  //if no file selected  
-            // dd($_COOKIE);              
-                unset ($_COOKIE['Tele1Error']);
-                unset ($_COOKIE['cookie']);
-                unset ($_COOKIE['File1Error']);
-                unset ($_COOKIE['Tele1Error2']);
                 $errFile = "الرجاء اختيار الملف المطلوب تحميله";                
                 $cookie_name = 'FileError';
                 $cookie_value = $errFile;
                 setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day
-                // dd($_COOKIE);   
                 return redirect('/contractors');
             } 
             unset ($_COOKIE['FileError']);
-            unset ($_COOKIE['File1Error']);            
-            unset ($_COOKIE['cookie']);
-            unset ($_COOKIE['Tele1Error2']);
             $filename = Input::file('file')->getClientOriginalName();            
             $Dpath = base_path();
             $upload_success =Input::file('file')->move( $Dpath, $filename);
-            $GLOBALS['z']= array('');
-            $GLOBALS['y']= array(''); //wrong data type tele1
+            $GLOBALS['z']= array(''); //tele1 null values
+            $GLOBALS['y']= array(''); //tele1 data type
+            $GLOBALS['s']= array(''); //tele1 Regex 
+
+            $GLOBALS['x']= array(''); //wrong tele2 datatype or 0 or character
+
+            $GLOBALS['a']= array(''); //wrong home_phone datatype or 0 or character
+
+            $GLOBALS['b']= array(''); //wrong data type name
+            $GLOBALS['c']= array(''); //wrong data type government
+            $GLOBALS['d']= array(''); //wrong data type city
+            $GLOBALS['e']= array(''); //wrong data type address
+            $GLOBALS['f']= array(''); //wrong data type job
+            $GLOBALS['j']= array(''); //wrong data type fame
+            $GLOBALS['k']= array(''); //wrong data type nick name
+            $GLOBALS['l']= array(''); //wrong data type religon
+            $GLOBALS['m']= array(''); //wrong data type religon
+            $GLOBALS['n']= array(''); //wrong data type computer
+            $GLOBALS['o']= array(''); //wrong data type smart_phone_type
+            $GLOBALS['p']= array(''); //wrong data type Has facebook type
+            $GLOBALS['q']= array(''); //wrong data type facebook account type
+            $GLOBALS['r']= array(''); //wrong data type birthdate type
+            
         Excel::load($upload_success, function($reader)
             {                       
                 $results = $reader->get()->toArray();
@@ -368,7 +368,6 @@ class ContractorsController extends Controller
                 {
                 $contractor =new Contractor();
                 $contractor->Name = $data['name'];
-                // dd(gettype($contractor->Name));
                 $contractor->Goverment = $data['goverment'];
                 $contractor->City = $data['city'];
                 $contractor->Address = $data['address'];
@@ -376,10 +375,10 @@ class ContractorsController extends Controller
                 $contractor->Class = $data['class'];
                 $contractor->Facebook_Account = $data['facebook_account'];
                 $contractor->Computer = $data['computer'];
+                $contractor->Has_Facebook = $data['has_facebook'];
                 $contractor->Email = $data['email'];
                 $contractor->Birthday =$data['birthday'];
                 $contractor->Tele1 = $data['tele1'];
-                // dd(gettype($data['tele1']));
                 $contractor->Tele2 =$data['tele2'];
                 $contractor->Job = $data['job'];
                 $contractor->Code=uniqid('Cont');
@@ -387,6 +386,7 @@ class ContractorsController extends Controller
                 $contractor->Nickname =$data['nickname'];
                 $contractor->Religion=$data['religion'];
                 $contractor->Home_Phone= $data['home_phone'];
+                $contractor->Fame= $data['fame'];
         if(isset($data['code'])){
             $Pormoter_Id= Promoter::where('Code',$data['code'])->pluck('Pormoter_Id')->first();
             $contractor->Pormoter_Id =$Pormoter_Id;
@@ -395,37 +395,265 @@ class ContractorsController extends Controller
 $Contractor_Id= Contractor::where('Tele1',$data['tele1'])->pluck('Contractor_Id')->first();
 }       
         try{
-            $contractor->save();
-            $saved_contractor = Contractor::find($contractor->Contractor_Id);
-            if ($saved_contractor->Tele1 == "0") { // Tele1 data type check
-                $TypeTele1Err = 'رقم التليفون غير صحيح للمقاول: ';
-
-        array_push($GLOBALS['y'],$saved_contractor->Name); 
-        $TypeTele1Err = $TypeTele1Err.implode(" \n ",$GLOBALS['y']);
-        $TypeTele1Err = nl2br($TypeTele1Err);  
-
-
-        $cookie_name = 'TypeTele1Err';
-        $cookie_value = $TypeTele1Err;
-        setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
-                $saved_contractor->delete();
-                
+            if($data['tele1'] == 0) { //if home phone equals 0 make it null
+                $contractor->Tele1 = null;
             }
 
-            // dd($TypeTele1Err); 
-        // dd('save',$contractor->Contractor_Id,$contractor->Tele1, $saved_contractor,$test);
-        }
+            $contractor->save();
+            $saved_contractor = Contractor::find($contractor->Contractor_Id);
+
+    ////////// yes or no validation
+    if($saved_contractor->Computer != null ){
+        if($saved_contractor->Computer != "نعم" ){
+            if($saved_contractor->Computer != "لا"){         
+                // dd('Computer');
+                $TypeCompErr = 'قيمة الحقل هل يمتلك كمبيوتر لابد ان تكون نعم او لا للمقاول: ';
+                array_push($GLOBALS['n'],$saved_contractor->Name); 
+                $TypeCompErr = $TypeCompErr.implode(" \n ",$GLOBALS['n']);
+                $TypeCompErr = nl2br($TypeCompErr);  
+                $cookie_name = 'TypeCompErr';
+                $cookie_value = $TypeCompErr;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete();    
+            }
+        }   
+    }
+    if($saved_contractor->Has_Facebook != null) {
+        if($saved_contractor->Has_Facebook != "نعم" ){
+            if($saved_contractor->Has_Facebook != "لا"){         
+                // dd('Has_Facebook');
+            $TypeHasFaceErr = 'قيمة الحقل هل يمتلك فيسبوك لابد ان تكون نعم او لا للمقاول: ';
+                array_push($GLOBALS['p'],$saved_contractor->Name); 
+                $TypeHasFaceErr = $TypeHasFaceErr.implode(" \n ",$GLOBALS['p']);
+                $TypeHasFaceErr = nl2br($TypeHasFaceErr);  
+                $cookie_name = 'TypeHasFaceErr';
+                $cookie_value = $TypeHasFaceErr;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete();    
+            }
+        }   
+    }
+    if($saved_contractor->Phone_Type != null ){
+        if($saved_contractor->Phone_Type != "نعم" ){
+            if($saved_contractor->Phone_Type != "لا"){         
+                // dd('Phone_Type');
+            $TypePhoneErr = 'قيمة الحقل هل يمتلك تليفون حديث لابد ان تكون نعم او لا للمقاول: ';
+                array_push($GLOBALS['o'],$saved_contractor->Name); 
+                $TypePhoneErr = $TypePhoneErr.implode(" \n ",$GLOBALS['o']);
+                $TypePhoneErr = nl2br($TypePhoneErr);  
+                $cookie_name = 'TypePhoneErr';
+                $cookie_value = $TypePhoneErr;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete();    
+            }
+        }   
+    }
+    ////// regex validation 
+            $name_regex = preg_match('/^(?:[\p{L}\p{Mn}\p{Pd}\'\x{2019}]+(?:$|\s+)){2,}/u' , $saved_contractor->Name);
+            // dd($name_regex);
+    if ($name_regex == 0 && !empty($saved_contractor->Name)) { // name_regex data type check
+                $TypeNameErr = 'الاسم غير صحيح للمقاول: ';
+                array_push($GLOBALS['b'],$saved_contractor->Name); 
+                $TypeNameErr = $TypeNameErr.implode(" \n ",$GLOBALS['b']);
+                $TypeNameErr = nl2br($TypeNameErr);  
+                $cookie_name = 'TypeNameErr';
+                $cookie_value = $TypeNameErr;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete();                
+            }
+
+    if ($saved_contractor->Birthday == "0000-00-00" && !empty($saved_contractor->Birthday)) { //birthday data type check
+                $TypeDateErr = 'تاريخ الميلاد يجب ان يكون كالمثال الاتي (يوم- شهر-سنه) 27-02-1990 للمقاول: ';
+                array_push($GLOBALS['r'],$saved_contractor->Name); 
+                $TypeDateErr = $TypeDateErr.implode(" \n ",$GLOBALS['r']);
+                $TypeDateErr = nl2br($TypeDateErr);  
+                $cookie_name = 'TypeDateErr';
+                $cookie_value = $TypeDateErr;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete();                
+            }
+
+        $FBaccount_regex = preg_match('/^[\pL\s]+$/u' , $saved_contractor->Facebook_Account);
+    if ($FBaccount_regex == 0 && !empty($saved_contractor->Facebook_Account)) { // FBaccount_regex data type check
+        // dd('FBaccount_regex');
+                $TypeFBaccErr = 'اسم المقاول علي الفيسبوك غير صحيح للمقاول: ';
+                array_push($GLOBALS['q'],$saved_contractor->Name); 
+                $TypeFBaccErr = $TypeFBaccErr.implode(" \n ",$GLOBALS['q']);
+                $TypeFBaccErr = nl2br($TypeFBaccErr);  
+                $cookie_name = 'TypeFBaccErr';
+                $cookie_value = $TypeFBaccErr;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete();                
+            }
+
+            $gov_regex = preg_match('/^[\pL\s]+$/u' , $saved_contractor->Goverment);
+    if ($gov_regex == 0 && !empty($saved_contractor->Goverment)) { // gov_regex data type check
+                $TypeGovErr = 'اسم المحافظة غير صحيح للمقاول: ';
+                array_push($GLOBALS['c'],$saved_contractor->Name); 
+                $TypeGovErr = $TypeGovErr.implode(" \n ",$GLOBALS['c']);
+                $TypeGovErr = nl2br($TypeGovErr);  
+                $cookie_name = 'TypeGovErr';
+                $cookie_value = $TypeGovErr;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete();                
+            }
+
+            $city_regex = preg_match('/^[\pL\s]+$/u' , $saved_contractor->City);
+if ($city_regex == 0 && !empty($saved_contractor->City)) { // city_regex data type check
+                $TypeCityErr = 'اسم المركز غير صحيح للمقاول: ';
+                array_push($GLOBALS['d'],$saved_contractor->Name); 
+                $TypeCityErr = $TypeCityErr.implode(" \n ",$GLOBALS['d']);
+                $TypeCityErr = nl2br($TypeCityErr);  
+                $cookie_name = 'TypeCityErr';
+                $cookie_value = $TypeCityErr;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete();                
+            }
+
+            $address_regex = preg_match('/^[\pL\s]+$/u' , $saved_contractor->Address);
+if ($address_regex == 0 && !empty($saved_contractor->Address)) { // address data type check
+                // dd($address_regex);
+                $TypeAddressErr = 'اسم العنوان غير صحيح للمقاول: ';
+                array_push($GLOBALS['e'],$saved_contractor->Name); 
+                $TypeAddressErr = $TypeAddressErr.implode(" \n ",$GLOBALS['e']);
+                $TypeAddressErr = nl2br($TypeAddressErr);  
+                $cookie_name = 'TypeAddressErr';
+                $cookie_value = $TypeAddressErr;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete(); 
+            }
+
+            $mail_regex = preg_match('/^[A-z0-9_\-]+[@][A-z0-9_\-]+([.][A-z0-9_\-]+)+[A-z.]{2,4}$/' , $saved_contractor->Email);
+if ($mail_regex == 0 && !empty($saved_contractor->Email)) { // Email data type check
+                // dd('mail_regex');
+                $TypeMailErr = 'البريد الاليكتروني غير صحيح للمقاول: ';
+                array_push($GLOBALS['m'],$saved_contractor->Name); 
+                $TypeMailErr = $TypeMailErr.implode(" \n ",$GLOBALS['m']);
+                $TypeMailErr = nl2br($TypeMailErr);  
+                $cookie_name = 'TypeMailErr';
+                $cookie_value = $TypeMailErr;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete(); 
+            }
+
+            $fame_regex = preg_match('/^[\pL\s]+$/u' , $saved_contractor->Fame);
+if ($fame_regex == 0 && !empty($saved_contractor->Fame)) { // fame data type check
+                // dd('yarab');
+                $TypeFameErr = 'اسم اللقب غير صحيح للمقاول: ';
+                array_push($GLOBALS['j'],$saved_contractor->Name); 
+                $TypeFameErr = $TypeFameErr.implode(" \n ",$GLOBALS['j']);
+                $TypeFameErr = nl2br($TypeFameErr);  
+                $cookie_name = 'TypeFameErr';
+                $cookie_value = $TypeFameErr;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete(); 
+            }
+
+            $nick_regex = preg_match('/^[\pL\s]+$/u' , $saved_contractor->Nickname);
+if ($nick_regex == 0 && !empty($saved_contractor->Nickname)) { // fame data type check
+                $TypeNickErr = 'اسم الشهرة غير صحيح للمقاول: ';
+                array_push($GLOBALS['k'],$saved_contractor->Name); 
+                $TypeNickErr = $TypeNickErr.implode(" \n ",$GLOBALS['k']);
+                $TypeNickErr = nl2br($TypeNickErr);  
+                $cookie_name = 'TypeNickErr';
+                $cookie_value = $TypeNickErr;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete(); 
+            }
+
+            $religion_regex = preg_match('/^[\pL\s]+$/u' , $saved_contractor->Religion);
+if ($religion_regex == 0 && !empty($saved_contractor->Religion)) { // Religion data type check
+                $TypeReligionErr = 'اسم الديانة غير صحيح للمقاول: ';
+                array_push($GLOBALS['l'],$saved_contractor->Name); 
+                $TypeReligionErr = $TypeReligionErr.implode(" \n ",$GLOBALS['l']);
+                $TypeReligionErr = nl2br($TypeReligionErr);  
+                $cookie_name = 'TypeReligionErr';
+                $cookie_value = $TypeReligionErr;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete(); 
+            }
+            $job_regex = preg_match('/^[\pL\s]+$/u' , $saved_contractor->Job);
+if ($job_regex == 0 && !empty($saved_contractor->Job)) { // job_regex data type check
+                $TypeJobErr = 'اسم الوظيفة غير صحيح للمقاول: ';
+                array_push($GLOBALS['f'],$saved_contractor->Name); 
+                $TypeJobErr = $TypeJobErr.implode(" \n ",$GLOBALS['f']);
+                $TypeJobErr = nl2br($TypeJobErr);  
+                $cookie_name = 'TypeJobErr';
+                $cookie_value = $TypeJobErr;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete(); 
+            }
+
+//phone numbers check
+
+// Tele1 is charachters 
+if ($saved_contractor->Tele1 == "0" && !empty($saved_contractor->Tele1)) { // Tele1 type check
+                $TypeTele1Err = 'رقم التليفون الاول غير صحيح للمقاول: ';
+                array_push($GLOBALS['y'],$saved_contractor->Name); 
+                $TypeTele1Err = $TypeTele1Err.implode(" \n ",$GLOBALS['y']);
+                $TypeTele1Err = nl2br($TypeTele1Err);  
+                $cookie_name = 'TypeTele1Err';
+                $cookie_value = $TypeTele1Err;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete();                
+            }
+// Tele1 dosent match regex
+$Tele1_regex = preg_match('/^[0-9]{10,11}$/' , $saved_contractor->Tele1);
+if ($Tele1_regex == 0 && !empty($saved_contractor->Tele1)) { // Tele1 data type check
+                $Tele1_regex = 'رقم التليفون غير صحيح للمقاول: ';
+                array_push($GLOBALS['s'],$saved_contractor->Name); 
+                $Tele1_regex = $Tele1_regex.implode(" \n ",$GLOBALS['s']);
+                $Tele1_regex = nl2br($Tele1_regex);  
+                $cookie_name = 'Tele1_regex';
+                $cookie_value = $Tele1_regex;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete(); 
+            }
+
+//Tele2 is charachters or zero or nom match regex
+$Tele2_regex = preg_match('/^[0-9]{10,11}$/' , $saved_contractor->Tele2);
+if ($saved_contractor->Tele2 != null) {
+    if ($saved_contractor->Tele2 == "0" || $Tele2_regex == 0) { // Tele2 type check
+                $TypeTele2Err = 'رقم التليفون الثاني غير صحيح للمقاول: ';
+                array_push($GLOBALS['x'],$saved_contractor->Name);  
+                $TypeTele2Err = $TypeTele2Err.implode(" \n ",$GLOBALS['x']);
+                $TypeTele2Err = nl2br($TypeTele2Err);  
+                $cookie_name = 'TypeTele2Err';
+                $cookie_value = $TypeTele2Err;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete();   
+    }
+}
+//Home phone is charachters or zero or nom match regex
+$phone_regex = preg_match('/^[0-9]{9,11}$/' , $saved_contractor->Home_Phone);
+if ($saved_contractor->Home_Phone != null) {
+    if ($saved_contractor->Home_Phone == "0" || $phone_regex == 0) { // Tele2 type check
+                $TypeHomeErr = 'رقم التليفون الارضي غير صحيح للمقاول: ';
+                array_push($GLOBALS['a'],$saved_contractor->Name);  
+                $TypeHomeErr = $TypeHomeErr.implode(" \n ",$GLOBALS['a']);
+                $TypeHomeErr = nl2br($TypeHomeErr);  
+                $cookie_name = 'TypeHomeErr';
+                $cookie_value = $TypeHomeErr;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day  
+                $saved_contractor->delete();   
+    }
+}
+
+    } //try end
         catch (\Exception $e)
             {   
-                // dd(gettype($contractor->Tele1));
-                dd($e);
+                // dd($e);
                 //if contractor exists
-                $exist_string= "Duplicate entry '".$data['tele1']."' for key 'contractors_tele1_unique'";
+                $exist_string= "Duplicate entry '".ltrim($data['tele1'], '0')."' for key 'contractors_tele1_unique'";
+
+                $exist_string2= "Duplicate entry '".$data['tele1']."' for key 'contractors_tele1_unique'";
+
                 $is_exist='null';
-                if ($exist_string == $e->errorInfo[2]) {  $is_exist='true';}
+                if ($exist_string2 == $e->errorInfo[2] || $exist_string == $e->errorInfo[2]) {  
+                        $is_exist='true';
+                }
                 if ($is_exist == 'true') { //update existing
-                    unset ($_COOKIE['FileError']);
-                    unset ($_COOKIE['Tele1Error2']);
+                    // dd('xist');
                     $updated_cont = Contractor::find($Contractor_Id);
                     $updated_cont->Name =  $data['name'];
                     $updated_cont->Goverment = $data['goverment'];
@@ -540,7 +768,6 @@ $Contractor_Id= Contractor::where('Tele1',$data['tele1'])->pluck('Contractor_Id'
         'tele2.regex'   =>'أدخل رقم التليفون صحيح',
         'home_phone.regex'=>'أدخل رقم التليفون صحيح',
         'alpha'         => 'أدخل حروف فقط',
-        'pormoter_id.required' =>'الرجاء ادخال اسم المندوب',
         'nickname.regex'=>'أدخل الحروف صحيحة',
         'religion.regex'=>'أدخل الحروف صحيحة',
         'fame.regex'    =>'أدخل الحروف صحيحة',
@@ -573,7 +800,6 @@ $Contractor_Id= Contractor::where('Tele1',$data['tele1'])->pluck('Contractor_Id'
                             'unique:contractors',
                             'different:tele1'
                             ),  
-        'pormoter_id' => array('required'),
         'job'       => array('regex:/^[\pL\s]+$/u'),
         'nickname'  => array('regex:/^[\pL\s]+$/u'),
         'religion'  => array('regex:/^[\pL\s]+$/u'),
@@ -632,7 +858,7 @@ $validator = Validator::make(Input::all(), $rules,$messages);
 
     public function update($id)
     {
-        $inputs = Input :: all();
+       $inputs = Input :: all();
         $contractor = Contractor::find($id);
 
         $rules = array(
@@ -640,14 +866,27 @@ $validator = Validator::make(Input::all(), $rules,$messages);
         'goverment' => array('regex:/^[\pL\s]+$/u'),
         'city'      => array('regex:/^[\pL\s]+$/u'),
         'address'   => array('regex:/^[\pL\s]+$/u'),
-        'mail'      => array('email'),
+
         'birthday'  => array(
                     'regex:/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/'),
-    'tele1' => array('required',
-                         'regex:/^[0-9]{11}$/'),
-    'tele2' => array('regex:/^[0-9]{11}$/','different:Tele1','different:home_phone'),
-'home_phone'=>array('regex:/^[0-9]{9,11}$/','different:tele2','different:tele1'),  
-        'pormoter_id' => array('required'),
+
+        'mail' => array('email'),
+
+        'tele2' => array('regex:/^[0-9]{10,11}$/',
+                        'different:home_phone',
+                    'unique:contractors,Tele2,'.$contractor->Contractor_Id.',Contractor_Id',
+                    ),
+        
+        'tele1' => 'required',
+                    'regex:/^[0-9]{10,11}$/',
+                    'different:Tele2',
+                    'different:home_phone',
+                    'unique:contractors,Tele1,'.$contractor->Contractor_Id.',Contractor_Id',
+
+        'home_phone'=>array('regex:/^[0-9]{9,11}$/',
+                'unique:contractors,Home_Phone,'.$contractor->Contractor_Id.',Contractor_Id',
+            ), 
+
         'job'       => array('regex:/^[\pL\s]+$/u'),
         'nickname'  => array('regex:/^[\pL\s]+$/u'),
         'religion'  => array('regex:/^[\pL\s]+$/u'),
@@ -655,24 +894,24 @@ $validator = Validator::make(Input::all(), $rules,$messages);
         );
         
          $messages = array(
-            'name.regex' =>'الرجاء ادخالا الاسم صحيح',
-            'goverment.regex' =>'أدخل الحروف صحيحة',
-            'city.regex' =>'أدخل الحروف صحيحة',
+            'birthday.regex'    => 'ادخل التاريخ كلاتي 2001-02-28',
+            'name.regex'        =>'الرجاء ادخالا الاسم صحيح',
+            'goverment.regex'   =>'أدخل الحروف صحيحة',
+            'city.regex'        =>'أدخل الحروف صحيحة',
             'address.regex' =>'أدخل الحروف صحيحة',
             'required'      => 'برجاء ادخال البيانات',
             'unique'        => 'هذه القيم موجودة بالفعل',
-            'email'         =>'ادخل الايميل بطريقة صحيحة',
+            'mail.email'         =>'ادخل الايميل بطريقة صحيحة',
             'tele1.regex'   =>'أدخل رقم التليفون صحيح',
             'tele2.regex'   =>'أدخل رقم التليفون صحيح',
             'home_phone.regex'=>'أدخل رقم التليفون صحيح',
             'alpha'         => 'أدخل حروف فقط',
             'job.regex'     =>'أدخل الحروف صحيحة',
-            'pormoter_id.required' =>'الرجاء ادخال اسم المندوب',
             'nickname.regex'=>'أدخل الحروف صحيحة',
             'religion.regex'=>'أدخل الحروف صحيحة',
             'fame.regex'    =>'أدخل الحروف صحيحة',
             'tele2.different'=> 'هذه القيمه مكرره',
-            'home_phone.different'=> 'هذه القيمه مكرره',
+            'tele1.different'=> 'هذه القيمه مكرره',
         );
 
         
