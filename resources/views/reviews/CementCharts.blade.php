@@ -11,21 +11,27 @@
 <h4>Chart analysis for cement types usage</h4>
 <div id="perf_div"></div>
 {!! \Lava::render('ColumnChart', 'MyStocks', 'perf_div') !!}
-
-<br/><br/>
+<br/>
 
 <h4>Chart analysis for cement quantites</h4>
 <div id="perf_div1"></div>
 {!! \Lava::render('ColumnChart', 'MyStocks1', 'perf_div1') !!}
+<br/>
 
-<br/><br/><br/>
+<?php
+//File
+	if(!empty($_COOKIE['FileError'])) {	    
+		echo "<div id='FileError'><div class='alert alert-block alert-danger fade in center'>";
+		echo $_COOKIE['FileError'];
+		echo "</div> </div>";
+	} 
+
+?>
 
 <section class="panel panel-primary">
 <div class="panel-body">
-
 <a href="/reviews/create" class="btn btn-primary">اضافة بيانات</a>	
-<br/><br/>
-
+<br/>
 <table class="table table-hover table-bordered dt-responsive nowrap display reviews" width="100%">
 	<thead>
 	    <tr>
@@ -145,7 +151,11 @@
 			    <td>{{$review->Seller3}}</td>
 			    <td>{{$review->Seller4}}</td>
 			    	
-			    <td>{{$review->getcontractor->getpromoter->Pormoter_Name}}</td>
+			   	@if($review->getcontractor->getpromoter)
+			    	<td>{{$review->getcontractor->getpromoter->Pormoter_Name}}</td>
+			    @else
+					<td>لا يوجد</td>>
+				@endif
 
 			    <td>{{$review->Project_NO}}</td>
 			    <td>{{$review->Cement_Consuption}}</td>

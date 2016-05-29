@@ -510,66 +510,76 @@ $index5 = 0;
         $importbtn= Request::get('submit'); 
         if(isset($importbtn))
         { 
+            if(!Input::file('file')){  //if no file selected  
+                $errFile = "الرجاء اختيار الملف المطلوب تحميله";                
+                $cookie_name = 'FileError';
+                $cookie_value = $errFile;
+                setcookie($cookie_name, $cookie_value, time() + (60), "/"); // 86400 = 1 day
+                return redirect('/Charts/TypesCharts');
+            } 
+            unset ($_COOKIE['FileError']);
             $filename = Input::file('file')->getClientOriginalName();
             $Dpath = base_path();
-            $upload_success =Input::file('file')->move( $Dpath, $filename);       
+            $upload_success =Input::file('file')->move( $Dpath, $filename); 
+
+            $GLOBALS['z']= array(''); //tele1 null values
+            $GLOBALS['y']= array(''); //tele1 data type
+            $GLOBALS['s']= array(''); //tele1 Regex 
+
+            $GLOBALS['x']= array(''); //wrong tele2 datatype or 0 or character
+
+            $GLOBALS['a']= array(''); //wrong home_phone datatype or 0 or character
+
+            $GLOBALS['b']= array(''); //wrong data type name
+            $GLOBALS['c']= array(''); //wrong data type government
+            $GLOBALS['d']= array(''); //wrong data type city
+            $GLOBALS['e']= array(''); //wrong data type address
+            $GLOBALS['f']= array(''); //wrong data type job
+            $GLOBALS['j']= array(''); //wrong data type fame
+            $GLOBALS['k']= array(''); //wrong data type nick name
+            $GLOBALS['l']= array(''); //wrong data type religon
+            $GLOBALS['m']= array(''); //wrong data type religon
+            $GLOBALS['n']= array(''); //wrong data type computer
+            $GLOBALS['o']= array(''); //wrong data type smart_phone_type
+            $GLOBALS['p']= array(''); //wrong data type Has facebook type
+            $GLOBALS['q']= array(''); //wrong data type facebook account type
+            $GLOBALS['r']= array(''); //wrong data type birthdate type
+                  
         Excel::load($upload_success, function($reader)
             {       
-            // $results = $reader->get()->first();
-            $results = $reader->get()->toArray(); 
-            // dd($results);
+                $results = $reader->get()->toArray(); 
             foreach ($results[0] as $data)
-            {               
-                $old_contractors = Contractor::all();
-                $contractor =new Contractor();
-                $contractor->Tele1 = $data['mobile1'];
-                $Contractor_Id= Contractor::where('Tele1',$contractor->Tele1)
-                                            ->pluck('Contractor_Id')->first();
-                $old_contractors_tele = array();
-                for ($i=0; $i < count($old_contractors) ; $i++) { 
-                    $old_contractors_tele[$Contractor_Id] = $old_contractors[$i]->Tele1;
-                    // $old_contractors_tele[$i]['Tele1'] = $old_contractors[$i]->Tele1;
-                    // $old_contractors_tele[$i]['id'] = $old_contractors[$i]->Contractor_Id;
-                }         
-                // dd($old_contractors_tele, $contractor->Tele1);
-                $key = array_search( $contractor->Tele1 , $old_contractors_tele) ;
-                // dd( 'key:  ' ,$key);
-
-    // for ($i=0; $i < count($old_contractors) ; $i++) { 
-        // echo $i;
-        
-        if ($key) {
-        // if ($contractor->Tele1 == $old_contractors_tele[$i]['Tele1']) { //contractor exists
-                echo 'existtttttt';
-            // $id = $old_contractors_tele[$key]['id'];
-            $contractor = Contractor::find($Contractor_Id);
-            $contractor->Name = $data['name'];
-            $contractor->Goverment = $data['government'];
-            $contractor->City = $data['city'];
-            $contractor->Address = $data['address'];
-            $contractor->Education = $data['education'];
-            $contractor->Facebook_Account = $data['facebook'];
-            $contractor->Computer = $data['computer'];
-            $contractor->Email = $data['mail'];
-            $contractor->Birthday =$data['birthday'];
-            $contractor->Tele2 =$data['mobile2'];
-            $contractor->Job = $data['job'];
-            $contractor->Code=uniqid('Cont');
-            $contractor->Phone_Type = $data['phone_type'];
-            $contractor->Nickname =$data['nick_name'];
-            $contractor->Religion=$data['religion'];
-            $contractor->Class=$data['class'];
-            $contractor->Home_Phone= $data['home_phone'];
+            {      
+                $contractor = new Contractor;        
+                $contractor->Name = $data['name'];
+                $contractor->Goverment = $data['government'];
+                $contractor->City = $data['city'];
+                $contractor->Address = $data['address'];
+                $contractor->Education = $data['education'];
+                $contractor->Facebook_Account = $data['facebook'];
+                $contractor->Computer = $data['computer'];
+                $contractor->Email = $data['mail'];
+                $contractor->Birthday =$data['birthday'];
+                $contractor->Tele1 =$data['mobile1'];
+                $contractor->Tele2 =$data['mobile2'];
+                $contractor->Job = $data['job'];
+                $contractor->Code=uniqid('Cont');
+                $contractor->Phone_Type = $data['phone_type'];
+                $contractor->Nickname =$data['nick_name'];
+                $contractor->Religion=$data['religion'];
+                $contractor->Class=$data['class'];
+                $contractor->Home_Phone= $data['home_phone'];
         if(isset($data['code'])){
            $Pormoter_Id= Promoter::where('Code',$data['code'])->pluck('Pormoter_Id')->first();
            $contractor->Pormoter_Id =$Pormoter_Id;
         }  
-            $contractor->save(); //update contractor
-
-            if ($contractor->getreview) {  //if review exists
-     // dd('has review', $contractor->Contractor_Id, $contractor->getreview->Review_Id);
-                $review_id = $contractor->getreview->Review_Id;
-                $review = Review::find($review_id);
+        if(isset($data['mobile1'])){
+$Contractor_Id= Contractor::where('Tele1',$data['mobile1'])->pluck('Contractor_Id')->first();
+        }      
+            try {
+                $contractor->save();  //new contractor
+                $review = new Review; 
+                $review->Contractor_Id = $contractor->Contractor_Id;
                 $review->Long = $data['long'];
                 $review->Lat = $data['lat'];
                 $review->Project_NO = $data['project_no'];
@@ -596,121 +606,115 @@ $index5 = 0;
                 $review->Status=$data['status'];
                 $review->Call_Status= $data['call_status'];
                 $review->Area=$data['area'];
-                $review->Cont_Type= $data['cont_type']; 
-                $review->save();           
-            }  //end if review exists
-            // else if(! $contractor->getreview) {   //else review doesn't exist
-            //     $review = new Review;
-            //     if(isset($data['mobile1'])){
-            //         $Contractor_Id= Contractor::where('Tele1',$contractor->Tele1)
-            //                         ->pluck('Contractor_Id')->first();
-            //         $review->Contractor_Id = $Contractor_Id;
-            //         //dd($review->Contractor_Id);
-            //     } 
-            //     $review->Long = $data['long'];
-            //     $review->Lat = $data['lat'];
-            //     $review->Project_NO = $data['project_no'];
-            //     $review->Portland_Cement = $data['portland_cement'];
-            //     $review->Resisted_Cement = $data['resisted_cement'];
-            //     $review->Eng_Cement = $data['eng_cement'];
-            //     $review->Saed_Cement = $data['saed_cement'];
-            //     $review->Fanar_Cement = $data['fanar_cement'];
-            //     $review->Workers =$data['workers'];
-            //     $review->Cement_Consuption = $data['cement_consuption'];
-            //     $review->Cement_Bricks =$data['cement_bricks'];
-            //     $review->Steel_Consumption = $data['steel_consumption'];
-            //     $review->Has_Wood = $data['has_wood'];
-            //     $review->Wood_Meters =$data['wood_meters'];
-            //     $review->Has_Mixers=$data['has_mixers'];
-            //     $review->No_Of_Mixers= $data['no_of_mixers'];
-            //     $review->Capital = $data['capital'];
-            //     $review->Credit_Debit = $data['credit_debit'];
-            //     $review->Has_Sub_Contractor =$data['has_sub_contractor'];
-            //     $review->Seller1 =$data['seller1'];
-            //     $review->Seller2 =$data['seller2'];
-            //     $review->Seller3 =$data['seller3'];
-            //     $review->Seller4 =$data['seller4'];
-            //     $review->Status=$data['status'];
-            //     $review->Call_Status= $data['call_status'];
-            //     $review->Area=$data['area'];
-            //     $review->Cont_Type= $data['cont_type']; 
-            //     $review->save();
-            // }
+                $review->Cont_Type= $data['cont_type'];  
 
-        } //end if contractor exists
-    //     if(! $key){ //else contractor dosent exist
-    //          echo 'NoooootExisttttttt';
-    //         //save new contractor
-    //         $newcontractor =new Contractor();
-    //         $newcontractor->Name = $data['name'];
-    //         $newcontractor->Goverment = $data['government'];
-    //         $newcontractor->City = $data['city'];
-    //         $newcontractor->Address = $data['address'];
-    //         $newcontractor->Education = $data['education'];
-    //         $newcontractor->Facebook_Account = $data['facebook'];
-    //         $newcontractor->Computer = $data['computer'];
-    //         $newcontractor->Email = $data['mail'];
-    //         $newcontractor->Birthday =$data['birthday'];
-    //         $newcontractor->Tele1 = $data['mobile1'];
-    //         $newcontractor->Tele2 =$data['mobile2'];
-    //         $newcontractor->Job = $data['job'];
-    //         $newcontractor->Code=uniqid('Cont');
-    //         $newcontractor->Phone_Type = $data['phone_type'];
-    //         $newcontractor->Nickname =$data['nick_name'];
-    //         $newcontractor->Religion=$data['religion'];
-    //         $newcontractor->Class=$data['class'];
-    //         $newcontractor->Home_Phone= $data['home_phone'];
-    // if(isset($data['code'])){
-    //     $Pormoter_Id= Promoter::where('Code',$data['code'])->pluck('Pormoter_Id')->first();
-    //     $newcontractor->Pormoter_Id =$Pormoter_Id;
-    // }
-    //         $newcontractor->save();
+            }
+            catch (\Exception $e) {
+                // dd($e);
+                $exist_string= "Duplicate entry '".ltrim($data['mobile1'], '0')."' for key 'contractors_tele1_unique'";
+                $exist_string2= "Duplicate entry '".$data['mobile1']."' for key 'contractors_tele1_unique'";
+                $is_exist='null';
+                if ($exist_string2 == $e->errorInfo[2] || $exist_string == $e->errorInfo[2]) {  
+                        $is_exist='true';
+                }
+                if ($is_exist == 'true') { //update existing
+                    $updated_cont = Contractor::find($Contractor_Id);
+                    // dd($updated_cont);
+                    $updated_cont->Name =  $data['name'];
+                    $updated_cont->Goverment = $data['government'];
+                    $updated_cont->City = $data['city'];
+                    $updated_cont->Address = $data['address'];
+                    $updated_cont->Education = $data['education'];
+                    $updated_cont->Class = $data['class'];
+                    $updated_cont->Facebook_Account = $data['facebook_account'];
+                    $updated_cont->Computer = $data['computer'];
+                    $updated_cont->Email = $data['mail'];
+                    $updated_cont->Birthday =$data['birthday'];
+                    $updated_cont->Tele2 =$data['mobile2'];
+                    $updated_cont->Job = $data['job'];
+                    $updated_cont->Code=uniqid('Cont');
+                    $updated_cont->Phone_Type = $data['phone_type'];
+                    $updated_cont->Nickname =$data['nick_name'];
+                    $updated_cont->Religion=$data['religion'];
+                    $updated_cont->Home_Phone=$data['home_phone'];
+    if(isset($data['code'])){
+        $Pormoter_Id= Promoter::where('Code',$data['code'])->pluck('Pormoter_Id')->first();
+        $updated_cont->Pormoter_Id =$Pormoter_Id;
+    }
+                    $updated_cont->save();
+                    if($updated_cont->getreview) {  // contractor has review
+                        $updated_review = Review::find($updated_cont->getreview->Review_Id);
+                        $updated_review->Long = $data['long'];
+                        $updated_review->Lat = $data['lat'];
+                        $updated_review->Project_NO = $data['project_no'];
+                        $updated_review->Portland_Cement = $data['portland_cement'];
+                        $updated_review->Resisted_Cement = $data['resisted_cement'];
+                        $updated_review->Eng_Cement = $data['eng_cement'];
+                        $updated_review->Saed_Cement = $data['saed_cement'];
+                        $updated_review->Fanar_Cement = $data['fanar_cement'];
+                        $updated_review->Workers =$data['workers'];
+                        $updated_review->Cement_Consuption = $data['cement_consuption'];
+                        $updated_review->Cement_Bricks =$data['cement_bricks'];
+                        $updated_review->Steel_Consumption = $data['steel_consumption'];
+                        $updated_review->Has_Wood = $data['has_wood'];
+                        $updated_review->Wood_Meters =$data['wood_meters'];
+                        $updated_review->Has_Mixers=$data['has_mixers'];
+                        $updated_review->No_Of_Mixers= $data['no_of_mixers'];
+                        $updated_review->Capital = $data['capital'];
+                        $updated_review->Credit_Debit = $data['credit_debit'];
+                        $updated_review->Has_Sub_Contractor =$data['has_sub_contractor'];
+                        $updated_review->Seller1 =$data['seller1'];
+                        $updated_review->Seller2 =$data['seller2'];
+                        $updated_review->Seller3 =$data['seller3'];
+                        $updated_review->Seller4 =$data['seller4'];
+                        $updated_review->Status=$data['status'];
+                        $updated_review->Call_Status= $data['call_status'];
+                        $updated_review->Area=$data['area'];
+                        $updated_review->Cont_Type= $data['cont_type']; 
+                        $updated_review->save();
+                    } // end update review 
+                else {  // contractor has no review
+                    // dd('else');
+                        $new_review = new Review;
+                        $new_review->Long = $data['long'];
+                        $new_review->Lat = $data['lat'];
+                        $new_review->Project_NO = $data['project_no'];
+                        $new_review->Portland_Cement = $data['portland_cement'];
+                        $new_review->Resisted_Cement = $data['resisted_cement'];
+                        $new_review->Eng_Cement = $data['eng_cement'];
+                        $new_review->Saed_Cement = $data['saed_cement'];
+                        $new_review->Fanar_Cement = $data['fanar_cement'];
+                        $new_review->Workers =$data['workers'];
+                        $new_review->Cement_Consuption = $data['cement_consuption'];
+                        $new_review->Cement_Bricks =$data['cement_bricks'];
+                        $new_review->Steel_Consumption = $data['steel_consumption'];
+                        $new_review->Has_Wood = $data['has_wood'];
+                        $new_review->Wood_Meters =$data['wood_meters'];
+                        $new_review->Has_Mixers=$data['has_mixers'];
+                        $new_review->No_Of_Mixers= $data['no_of_mixers'];
+                        $new_review->Capital = $data['capital'];
+                        $new_review->Credit_Debit = $data['credit_debit'];
+                        $new_review->Has_Sub_Contractor =$data['has_sub_contractor'];
+                        $new_review->Seller1 =$data['seller1'];
+                        $new_review->Seller2 =$data['seller2'];
+                        $new_review->Seller3 =$data['seller3'];
+                        $new_review->Seller4 =$data['seller4'];
+                        $new_review->Status=$data['status'];
+                        $new_review->Call_Status= $data['call_status'];
+                        $new_review->Area=$data['area'];
+                        $new_review->Cont_Type= $data['cont_type'];
+                        $new_review->Contractor_Id= $updated_cont->Contractor_Id; 
+                        $new_review->save();
+                }   // end contractor has no review 
 
-    //         //save new contractor review
-    //         $review = new Review;
-    //             if(isset($data['mobile1'])){
-    //                 $Contractor_Id= Contractor::where('Tele1',$contractor->Tele1)
-    //                                 ->pluck('Contractor_Id')->first();
-    //                 $review->Contractor_Id = $Contractor_Id;
-    //                 //dd($review->Contractor_Id);
-    //             } 
-    //             $review->Long = $data['long'];
-    //             $review->Lat = $data['lat'];
-    //             $review->Project_NO = $data['project_no'];
-    //             $review->Portland_Cement = $data['portland_cement'];
-    //             $review->Resisted_Cement = $data['resisted_cement'];
-    //             $review->Eng_Cement = $data['eng_cement'];
-    //             $review->Saed_Cement = $data['saed_cement'];
-    //             $review->Fanar_Cement = $data['fanar_cement'];
-    //             $review->Workers =$data['workers'];
-    //             $review->Cement_Consuption = $data['cement_consuption'];
-    //             $review->Cement_Bricks =$data['cement_bricks'];
-    //             $review->Steel_Consumption = $data['steel_consumption'];
-    //             $review->Has_Wood = $data['has_wood'];
-    //             $review->Wood_Meters =$data['wood_meters'];
-    //             $review->Has_Mixers=$data['has_mixers'];
-    //             $review->No_Of_Mixers= $data['no_of_mixers'];
-    //             $review->Capital = $data['capital'];
-    //             $review->Credit_Debit = $data['credit_debit'];
-    //             $review->Has_Sub_Contractor =$data['has_sub_contractor'];
-    //             $review->Seller1 =$data['seller1'];
-    //             $review->Seller2 =$data['seller2'];
-    //             $review->Seller3 =$data['seller3'];
-    //             $review->Seller4 =$data['seller4'];
-    //             $review->Status=$data['status'];
-    //             $review->Call_Status= $data['call_status'];
-    //             $review->Area=$data['area'];
-    //             $review->Cont_Type= $data['cont_type']; 
-    //             $review->save();
-
-    //     }//end else contractor dosent exist
-    // } //end foreach old contractors
-
-    }//end foreach
-        
+                } //end if contractor exists
+            
+            } //catch end
+       
+            }  //end if review exists        
     });  //end excel
 
-    return redirect('/reviews');           
+    return redirect('/Charts/TypesCharts');           
     } 
 
 }
